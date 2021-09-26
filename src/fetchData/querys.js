@@ -22,7 +22,16 @@ async function getflowerBypk(data) {
 
 
 async function buyAFlower(data) {
-    
+    const flower = await getflowerBypk(data.name)
+
+    if (flower)
+        return {
+            status: 200
+        }
+    return {
+        status: 404,
+        data: " sorry this flower does not exist anymore"
+    }
 }
 
 module.exports = {
