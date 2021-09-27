@@ -1,3 +1,5 @@
+const { sequelize } = require("./connection")
+
 const { Model, DataTypes } = require("sequelize")
 
 
@@ -13,7 +15,12 @@ User.init({
     },
     password: DataTypes.TEXT,
     token: DataTypes.TEXT
-})
+}, {
+    sequelize,
+    modelName: "User"
+}
+
+)
 
 
 module.exports = {

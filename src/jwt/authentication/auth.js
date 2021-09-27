@@ -15,7 +15,7 @@ async function register(req, res) {
 
     try {
 
-        const user = await cleanRegister(firstName, lastName, email, password, busy, endPoint)
+        const user = await cleanRegister(firstName, lastName, email, password)
 
         res.status(200).json(user)
 
@@ -49,7 +49,7 @@ async function login(req, res) {
             res.status(401).send("Incorrect creedentials")
 
         if (err instanceof InputRequire)
-            res.status(409).send("All input is require")
+            res.status(402).send("All input is require")
 
     }
 

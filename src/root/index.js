@@ -1,5 +1,5 @@
 const { Router, request } = require("express");
-const { getFlowers, getflowerById, buyFlower, create, deleteflower } = require("../controller/index.controller");
+const { getFlowers, getflowerById, buyFlower, create, deleteflower, deleteF } = require("../controller/index.controller");
 const router = Router();
 
 const { verifyingToken } = require("../jwt/middleware/authToken")
@@ -16,7 +16,7 @@ router.post("/buy", verifyingToken, buyFlower)
 
 //only for owner use porpuse
 router.post("/flowers", create)
-router.delete("/flowers/:id", deleteflower)
-router.delete("/flower", deleteflower)
+router.delete("/flowers/:id", deleteF)
+router.delete("/flowers", deleteF)
 
 module.exports = router

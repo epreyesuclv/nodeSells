@@ -12,7 +12,12 @@ async function getFlowersAll(data) {
 }
 
 
+async function createFlower(data) {
+    const response = await Flower.create(data)
 
+    return response
+
+}
 async function getflowerBypk(data) {
 
     const response = await Flower.findByPk(data.id)
@@ -22,8 +27,8 @@ async function getflowerBypk(data) {
 
 
 async function buyAFlower(data) {
-    const flower = await getflowerBypk(data.name)
-
+    const flower = await getflowerBypk(data)
+    console.log("querys " , flower.toJSON())
     if (flower)
         return {
             status: 200
@@ -34,8 +39,21 @@ async function buyAFlower(data) {
     }
 }
 
+
+
+async function deleteflower(data) {
+
+    const response = await Flower.findByPk(data.name)
+
+    response.destroy()
+    return response
+}
+
+
 module.exports = {
     getFlowersAll,
     getflowerBypk,
-    buyAFlower
+    buyAFlower,
+    createFlower,
+    deleteflower
 }

@@ -1,4 +1,5 @@
-const { getFlowersAll } = require("../fetchData/querys")
+const { getFlowersAll, deleteflower,buyAFlower ,createFlower} = require("../fetchData/querys")
+const { Flower } = require("../models/flower")
 
 
 async function getFlowers(req, res) {
@@ -21,10 +22,11 @@ async function getflowerById(req, res) {
 
 async function buyFlower(req, res) {
 
-    const { name, adress, amount } = req.body
+    const { name, address, amount,user } = req.body
+
     const data = await buyAFlower({
-        name: name,
-        adress: adress,
+        id: name,
+        address: address,
         amount: amount
     })
 
@@ -35,13 +37,27 @@ async function buyFlower(req, res) {
 
 
 async function create(req, res) {
-    //todo
+
+    const data = req.body
+
+    const flower = await createFlower(data)
+
+    res.status(200).json(flower)
+
 }
 
 
 
-async function deleteflower(req, res) {
-    //todo
+async function deleteF(req, res) {
+
+    const name = req.body.id || req.params.id
+    const flower = await deleteflower({ name: name })
+    if (flower) {
+        res.status(200).send("the flowers was deleted")
+    } else {
+        res.status(401).send("could'nt delete the flower")
+    }
+
 }
 
 
@@ -51,6 +67,6 @@ module.exports = {
     getflowerById,
     buyFlower,
     create,
-    deleteflower
+    deleteF
 
 }

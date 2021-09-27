@@ -1,11 +1,11 @@
 
-const { create, findOneBack, findOneFront } = require("../config/authQuerys")
+const { User } = require("../../models/user")
 
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcrypt")
 const { IncorrectCredentials, InputRequire, DuplicateEmail } = require("../../Errors/MyErrors")
 const jwt = require("jsonwebtoken")
 
-
+require("dotenv").config
 
 //throw: InputRequireError , IncorrectCredentialError
 async function cleanLogin(email, password) {
@@ -18,15 +18,15 @@ async function cleanLogin(email, password) {
 
     //veryfying if the user already exist
 
-    const user = await User.findOne(email)
-    //console.log(user)
+    const user = await User.findByPk(email)
+    //console.log(user.toJSON())
     if (user === undefined)
         throw new IncorrectCredentials
 
     //console.log(user)
-    if (user && (await bcrypt.compare(password, user.pass))) {
+    if (user && (await bcrypt.compare(password, user.password ?? ""))) {
 
-        token = getToken(user, email)
+        const token = getToken(email)
 
         user.token = token
         //console.log("in cleanAuth",user)
@@ -41,7 +41,7 @@ async function cleanLogin(email, password) {
 
 
 //throws : IntputRequireError , DuplicateEmailError , IncorrectCredentialsError
-async function cleanRegister(firstName, lastName, email, password, busy) {
+async function cleanRegister(firstName, lastName, email, password) {
 
     //veryfiying if the fields are empty
     if (!(email && password && firstName && lastName))
@@ -50,7 +50,7 @@ async function cleanRegister(firstName, lastName, email, password, busy) {
 
     //veryfying if the user already exist
 
-    const oldUser = await User.findOne(email)
+    const oldUser = await User.findByPk(email)
     // console.log(oldUser)
 
     if (oldUser)
@@ -58,7 +58,7 @@ async function cleanRegister(firstName, lastName, email, password, busy) {
         throw new DuplicateEmail
 
     //encypting the pass
-    encryptedPass = await bcrypt.hash(password, 11)
+    const encryptedPass = await bcrypt.hash(password, 11)
 
     //creating token
     const token = getToken(email)
@@ -68,15 +68,18 @@ async function cleanRegister(firstName, lastName, email, password, busy) {
         firstName: firstName,
         lastName: lastName,
         email: email.toLowerCase(),
-        pass: encryptedPass
+        password: encryptedPass
     }
     )
+    console.log(user.toJSON())
 
     user.token = token
 
     return user
 
 }
+
+
 
 
 function getToken(email) {
@@ -91,7 +94,6 @@ function getToken(email) {
         }
     )
     return token
-
 }
 
 async function handlercatch(err) {

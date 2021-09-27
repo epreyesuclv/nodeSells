@@ -1,4 +1,4 @@
-
+const { sequelize } = require("./connection")
 const { Model, DataTypes } = require("sequelize")
 
 
@@ -13,7 +13,12 @@ Flower.init({
     color: DataTypes.STRING
 
 
-})
+}, {
+    sequelize,
+    modelName: "Flower"
+}
+
+)
 
 module.exports = {
     Flower
