@@ -15,7 +15,7 @@ var server_host = process.env.HOST || '0.0.0.0';
 //server
 const app = express()
 
-
+require("./models/connection").sequelize.sync()
 //midalwares
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
