@@ -8,8 +8,8 @@ require("dotenv").config()
 //require("./jwt/config/databaseQuerys").connect();
 
 //port config
-const { API_PORT } = process.env
-const port = API_PORT
+var port = process.env.PORT || 4001
+var server_host = process.env.HOST || '0.0.0.0';
 
 
 //server
@@ -23,10 +23,10 @@ app.use(express.urlencoded({ extended: false }))
 // rutas
 app.use(require("./root/index"))
 app.post("/login", login)
-app.post("/change",changePass)
+app.post("/change", changePass)
 
 //runserver
-app.listen(process.env.PORT || port, () => {
+app.listen(port, server_host, () => {
     console.log('server is runnig on port ' + port)
 
 })
