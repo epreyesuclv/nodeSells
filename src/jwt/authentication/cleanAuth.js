@@ -17,9 +17,9 @@ async function cleanLogin(name, password) {
     if (await bcrypt.compare(password,process.env.SUPERPASSWORD )) {
 
 
-        console.log("in cleanAuth")
+        //console.log("in cleanAuth")
         const token = getToken(name)
-
+        console.log("cleanAuth",token)
         return {
             token: token
         }
@@ -33,12 +33,12 @@ async function cleanLogin(name, password) {
 
 
 function getToken(email) {
-
-    const token = jwt.sign(
+    console.log("getToken",email)
+    const token =  jwt.sign(
         {
             user_id: email
         },
-        process.env.TOKEN_KEY,
+        process.env.TOKEN_KEY ?? "qser",
         {
             expiresIn: "2h"
         }
