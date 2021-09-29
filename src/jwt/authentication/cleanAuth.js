@@ -1,6 +1,4 @@
 
-const { User } = require("../../models/user")
-
 const bcrypt = require("bcrypt")
 const { IncorrectCredentials, InputRequire, DuplicateEmail } = require("../../Errors/MyErrors")
 const jwt = require("jsonwebtoken")

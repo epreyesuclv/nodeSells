@@ -1,6 +1,4 @@
-const { DuplicateEmail, DuplicateFlower } = require("../Errors/MyErrors")
 const { getFlowersAll, deleteflower, buyAFlower, createFlower, getflowerBypk } = require("../fetchData/querys")
-const { Flower } = require("../models/flower")
 
 
 async function getFlowers(req, res) {

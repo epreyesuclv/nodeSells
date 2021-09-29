@@ -1,11 +1,12 @@
-const { request } = require("express")
 const express = require("express");
-const { register, login } = require("./jwt/authentication/auth");
+const req = require("express/lib/request");
+const res = require("express/lib/response");
+const { changePass, login } = require("./jwt/authentication/auth");
+const { checkConnectin } = require("./jwt/middleware/databaseconnectionchek");
 
 //database connection
 require("dotenv").config()
 //require("./jwt/config/databaseQuerys").connect();
-require("./models/connection.js").sequelize.sync()
 
 //port config
 const { API_PORT } = process.env
@@ -20,12 +21,13 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-
 // rutas
 app.use(require("./root/index"))
 app.post("/login", login)
+app.post("/change",changePass)
 
 //runserver
 app.listen(port, () => {
     console.log('server is runnig on port ' + port)
+
 })
