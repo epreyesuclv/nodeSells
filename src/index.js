@@ -26,7 +26,7 @@ app.post("/login", login)
 app.post("/change",changePass)
 
 //runserver
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log('server is runnig on port ' + port)
 
 })
