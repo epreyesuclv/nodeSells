@@ -5,32 +5,26 @@ const bcrypt = require("bcrypt")
 const { IncorrectCredentials, InputRequire, DuplicateEmail } = require("../../Errors/MyErrors")
 const jwt = require("jsonwebtoken")
 
-require("dotenv").config
+require("dotenv").config()
 
 //throw: InputRequireError , IncorrectCredentialError
-async function cleanLogin(email, password) {
+async function cleanLogin(name, password) {
 
-    if (!(email && password)) {
+    if (!(name && password)) {
         throw new InputRequire
     }
     //console.log(email)
+    //   console.log("cleanAuth - celanLogin", password === process.env.SUPERPASSWORD)
+   
+    if (await bcrypt.compare(password,process.env.SUPERPASSWORD )) {
 
 
-    //veryfying if the user already exist
+        console.log("in cleanAuth")
+        const token = getToken(name)
 
-    const user = await User.findByPk(email)
-    //console.log(user.toJSON())
-    if (user === undefined)
-        throw new IncorrectCredentials
-
-    //console.log(user)
-    if (user && (await bcrypt.compare(password, user.password ?? ""))) {
-
-        const token = getToken(email)
-
-        user.token = token
-        //console.log("in cleanAuth",user)
-        return user
+        return {
+            token: token
+        }
     }
 
     throw new IncorrectCredentials
@@ -38,48 +32,6 @@ async function cleanLogin(email, password) {
 
 
 }
-
-
-//throws : IntputRequireError , DuplicateEmailError , IncorrectCredentialsError
-async function cleanRegister(firstName, lastName, email, password) {
-
-    //veryfiying if the fields are empty
-    if (!(email && password && firstName && lastName))
-        // res.status(400).send("All input is required")
-        throw new InputRequire
-
-    //veryfying if the user already exist
-
-    const oldUser = await User.findByPk(email)
-    // console.log(oldUser)
-
-    if (oldUser)
-        //return res.status(409).send("user aready exist")
-        throw new DuplicateEmail
-
-    //encypting the pass
-    const encryptedPass = await bcrypt.hash(password, 11)
-
-    //creating token
-    const token = getToken(email)
-
-    //creating the user
-    const user = await User.create({
-        firstName: firstName,
-        lastName: lastName,
-        email: email.toLowerCase(),
-        password: encryptedPass
-    }
-    )
-    console.log(user.toJSON())
-
-    user.token = token
-
-    return user
-
-}
-
-
 
 
 function getToken(email) {
@@ -103,6 +55,5 @@ async function handlercatch(err) {
 
 
 module.exports = {
-    cleanLogin,
-    cleanRegister
+    cleanLogin
 }

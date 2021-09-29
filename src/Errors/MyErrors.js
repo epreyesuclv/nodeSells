@@ -3,7 +3,7 @@ class InputRequire extends Error{
         super()
     }
 }
-class DuplicateEmail extends Error{
+class DuplicateFlower extends Error{
     constructor(){
         super()
     }
@@ -16,6 +16,6 @@ class IncorrectCredentials extends Error{
 
 module.exports = {
     InputRequire,
-    DuplicateEmail,
+    DuplicateFlower,
     IncorrectCredentials
 }

@@ -23,7 +23,6 @@ app.use(express.urlencoded({ extended: false }))
 
 // rutas
 app.use(require("./root/index"))
-app.post("/register", register)
 app.post("/login", login)
 
 //runserver

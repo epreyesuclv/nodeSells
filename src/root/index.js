@@ -11,12 +11,12 @@ router.get("/flowers/:id", getflowerById)
 router.get("/flowers", getflowerById)
 
 
-router.post("/buy", verifyingToken, buyFlower)
+router.post("/buy",  buyFlower)
 
 
 //only for owner use porpuse
-router.post("/flowers", create)
-router.delete("/flowers/:id", deleteF)
-router.delete("/flowers", deleteF)
+router.post("/flowers",verifyingToken, create)
+router.delete("/flowers/:id",verifyingToken, deleteF)
+router.delete("/flowers",verifyingToken, deleteF)
 
 module.exports = router

@@ -9,7 +9,7 @@ function verifyingToken(req, res, next) {
     if (!(token.length)) {
         return res.status(403).send("token required")
     }
-    //console.log("authToken ", token)
+    //console.log("authToken ", token)`
     try {
 
         const decode = jwt.verify(token, process.env.TOKEN_KEY)

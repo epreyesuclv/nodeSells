@@ -1,62 +1,96 @@
-const { getFlowersAll, deleteflower,buyAFlower ,createFlower} = require("../fetchData/querys")
+const { DuplicateEmail, DuplicateFlower } = require("../Errors/MyErrors")
+const { getFlowersAll, deleteflower, buyAFlower, createFlower, getflowerBypk } = require("../fetchData/querys")
 const { Flower } = require("../models/flower")
 
 
 async function getFlowers(req, res) {
+    try {
+        const data = await getFlowersAll()
+        res.status(200).json(data)
+    }
 
-    const data = await getFlowersAll()
-
-    res.status(200).json(data)
-
+    catch (err) {
+        console.log("index.controller", err)
+    }
 
 }
 
 async function getflowerById(req, res) {
-    const id = req.body.id || req.params.id
+    try {
+        const id = req.body.id || req.params.id
 
-    const data = await getFlowersAll({
-        id: id
-    })
-    res.status(200).json(data)
+        const data = await getflowerBypk({
+            name: id
+        })
+        res.status(200).json(data)
+    }
+
+    catch (err) {
+        console.log("index.controller", err)
+    }
+
 }
 
 async function buyFlower(req, res) {
+    try {
+        const { name, address, amount, user } = req.body
 
-    const { name, address, amount,user } = req.body
+        const data = await buyAFlower({
+            id: name,
+            address: address,
+            amount: amount
+        })
 
-    const data = await buyAFlower({
-        id: name,
-        address: address,
-        amount: amount
-    })
+        res.status(data.status).send(data.data ?? "your flower will come soon")
+    }
 
-    res.status(data.status).send(data.data ?? "your flower will come soon")
+    catch (err) {
+        console.log("index.controller", err)
+    }
+
 }
 
 
 
 
 async function create(req, res) {
+    try {
+        const data = req.body
 
-    const data = req.body
+        const old = await getflowerBypk(data)
+        console.log("index.controller - create", old)
+        if (old)
+            res.status(409).send("this flower already exist")
 
-    const flower = await createFlower(data)
+        const flower = await createFlower(data)
 
-    res.status(200).json(flower)
+        res.status(200).json(flower)
+    }
+
+    catch (err) {
+        console.log("index.controller", err)
+    }
+
 
 }
 
 
 
 async function deleteF(req, res) {
-
-    const name = req.body.id || req.params.id
-    const flower = await deleteflower({ name: name })
-    if (flower) {
-        res.status(200).send("the flowers was deleted")
-    } else {
-        res.status(401).send("could'nt delete the flower")
+    try {
+        const name = req.body.name || req.params.name
+        const flower = await deleteflower({ name: name })
+        if (flower) {
+            res.status(200).send("the flowers was deleted")
+        } else {
+            res.status(409).send("could'nt delete the flower")
+        }
     }
+
+    catch (err) {
+        console.log("index.controller", err)
+    }
+
 
 }
 
