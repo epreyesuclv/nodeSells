@@ -1,7 +1,7 @@
 {
     "name": "Start on Heroku: Node.js",
     "description": "This is my node sells testing deployment",
-    "repository": "hhttps://git.heroku.com/nodesellflowers.git",
+    "repository": "https://git.heroku.com/nodesellflowers.git",
     "keywords": [
         "node",
         "express",
