@@ -34,7 +34,7 @@ async function buyFlower(req, res) {
         const { name, address, amount, user } = req.body
 
         const data = await buyAFlower({
-            id: name,
+            name: name,
             address: address,
             amount: amount
         })

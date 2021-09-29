@@ -28,7 +28,7 @@ async function getflowerBypk(data) {
 
 async function buyAFlower(data) {
     const flower = await getflowerBypk(data)
-    console.log("querys ", flower.toJSON())
+ //   console.log("querys ", flower.toJSON())
     if (flower)
         return {
             status: 200
