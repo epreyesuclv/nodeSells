@@ -2,7 +2,6 @@ const express = require("express");
 const req = require("express/lib/request");
 const res = require("express/lib/response");
 const { changePass, login } = require("./jwt/authentication/auth");
-const { checkConnectin } = require("./jwt/middleware/databaseconnectionchek");
 
 //database connection
 require("dotenv").config()
