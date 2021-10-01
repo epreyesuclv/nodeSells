@@ -163,11 +163,11 @@ const createFlower = {
                         },
                         region: {
                             type: 'string',
-                            example: 'Tokio,Japan'
+                            example: 'Japan'
                         },
                         color: {
                             type: 'integer',
-                            example: 20
+                            example: 'red'
                         },
                         token: {
                             type: 'string',
@@ -192,15 +192,21 @@ const createFlower = {
                     }
                 }
             },
+        },
+        '401': {
+            description: 'invalid token, you need to pass a valid token for your user'
+        },
+        '403': {
+            description: 'token require, you need to pass the token in the body'
+        },
+        '503': {
+            description:
+                'I simply include this for testing , but is probable that was an error in my code  I apologize'
 
-            '503': {
-                description:
-                    'I simply include this for testing , but is probable that was an error in my code  I apologize'
-
-            },
+        },
 
 
-        }
+
     }
 }
 
@@ -242,19 +248,26 @@ const deleteflower = {
                     }
                 }
             },
-            '409': {
-                description:
-                    ' the flowers does not exist in the database'
-            },
+        },
+        '401': {
+            description: 'invalid token, you need to pass a valid token for your user'
+        },
+        '403': {
+            description: 'token require, you need to pass the token in the body'
+        },
+        '409': {
+            description:
+                ' the flowers does not exist in the database'
+        },
 
-            '503': {
-                description:
-                    'I simply include this for testing , but is probable that was an error in my code  I apologize'
+        '503': {
+            description:
+                'I simply include this for testing , but is probable that was an error in my code  I apologize'
 
-            },
+        },
 
 
-        }
+
     }
 }
 

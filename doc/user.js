@@ -62,7 +62,7 @@ const login = {
 
 
 const change = {
-    tags: ['Users'],
+    tags: ['Owner'],
     description: 'use this if your want to change the password',
 
     requestBody: {

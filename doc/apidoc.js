@@ -41,9 +41,12 @@ const apiDocumentation = {
         '/change': {
             post: change
         },
+
         '/flowers': {
             post: createFlower,
+
             get: getAllFlowers
+
 
         },
 
@@ -51,9 +54,6 @@ const apiDocumentation = {
         '/flowers/{id}': {
             get: getFlowerById,
             delete: deleteflower
-        },
-        '/flowers': {
-            get: getAllFlowers
         },
 
         '/buy': {
