@@ -9,7 +9,7 @@ const getAllFlowers = {
             content: {
                 'application/json': {
                     schema: {
-                        type: 'array',
+                        type: 'object',
                         properties: {
                             name: {
                                 type: 'string',

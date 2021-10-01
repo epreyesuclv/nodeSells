@@ -1,5 +1,5 @@
 require("dotenv").config()
-const {  DATABASEURI } = process.env
+const { DATABASEURI, DATABASE_URL } = process.env
 
 
 
@@ -9,7 +9,7 @@ const sequelize = function () {
 
 
     console.log("connection ", DATABASEURI)
-    const sequelize = new Sequelize(DATABASEURI, {
+    const sequelize = new Sequelize(DATABASE_URL || DATABASEURI, {
         dialectOptions: {
             ssl: {
                 require: true,
