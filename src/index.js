@@ -14,6 +14,12 @@ var server_host = process.env.HOST || '0.0.0.0';
 
 //server
 const app = express()
+const { apiDocumentation } = require('../doc/apidoc.js')
+//for documentation with swagger
+const swaggerui = require("swagger-ui-express")
+
+app.use("/api-doc", swaggerui.serve, swaggerui.setup(apiDocumentation))
+
 
 require("./models/connection").sequelize.sync()
 //midalwares

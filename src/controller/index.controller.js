@@ -8,6 +8,7 @@ async function getFlowers(req, res) {
     }
 
     catch (err) {
+        res.status(503).json("server Error")
         console.log("index.controller", err)
     }
 
@@ -15,7 +16,7 @@ async function getFlowers(req, res) {
 
 async function getflowerById(req, res) {
     try {
-        const id = req.body.id || req.params.id
+        const id = req.body.id || req.params.id || ""
 
         const data = await getflowerBypk({
             name: id
@@ -24,6 +25,8 @@ async function getflowerById(req, res) {
     }
 
     catch (err) {
+        res.status(503).json("server Error")
+
         console.log("index.controller", err)
     }
 
@@ -43,6 +46,8 @@ async function buyFlower(req, res) {
     }
 
     catch (err) {
+        res.status(503).json("server Error")
+
         console.log("index.controller", err)
     }
 
@@ -66,6 +71,8 @@ async function create(req, res) {
     }
 
     catch (err) {
+        res.status(503).json("server Error")
+
         console.log("index.controller", err)
     }
 

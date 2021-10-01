@@ -7,7 +7,7 @@ const { verifyingToken } = require("../jwt/middleware/authToken");
 const { getFlowers, getflowerById, buyFlower, create, deleteF } = require("../controller/index.controller");
 router.get("/flowers", getFlowers)
 router.get("/flowers/:id", getflowerById)
-router.get("/flowers", getflowerById)
+//router.get("/flowers", getflowerById)
 
 
 router.post("/buy", buyFlower)
