@@ -8,13 +8,9 @@ const { Sequelize } = require("sequelize")
 
 const sequelize = function () {
 
-    const sequelize = new Sequelize(DATABASE_URL || DATABASEURI, {
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false // <<<<<<< YOU NEED THIS
-            }
-        }
+    const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
+        dialect: "postgres",
+        host: 'localhost'
 
     })
 

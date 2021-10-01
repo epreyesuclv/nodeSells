@@ -19,7 +19,7 @@ const { apiDocumentation } = require('../doc/apidoc.js')
 //for documentation with swagger
 const swaggerui = require("swagger-ui-express")
 
-app.use("/doc", swaggerui.serve, swaggerui.setup(apiDocumentation))
+app.use("/api-doc", swaggerui.serve, swaggerui.setup(apiDocumentation))
 
 
 
