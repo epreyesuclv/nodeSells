@@ -11,16 +11,16 @@ require("dotenv").config()
 //port config
 const { API_PORT } = process.env
 const port = API_PORT
+
+
+//server
+const app = express()
 const { apiDocumentation } = require('../doc/apidoc.js')
 //for documentation with swagger
 const swaggerui = require("swagger-ui-express")
 
 app.use("/doc", swaggerui.serve, swaggerui.setup(apiDocumentation))
 
-
-
-//server
-const app = express()
 
 
 //midalwares
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }))
 // rutas
 app.use(require("./root/index"))
 app.post("/login", login)
-app.post("/change",changePass)
+app.post("/change", changePass)
 
 //runserver
 app.listen(port, () => {
