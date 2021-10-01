@@ -15,7 +15,7 @@ async function getFlowers(req, res) {
 
 async function getflowerById(req, res) {
     try {
-        const id = req.body.id || req.params.id
+        const id = req.body.id || req.params.id || ""
 
         const data = await getflowerBypk({
             name: id

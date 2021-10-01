@@ -11,6 +11,12 @@ require("dotenv").config()
 //port config
 const { API_PORT } = process.env
 const port = API_PORT
+const { apiDocumentation } = require('../doc/apidoc.js')
+//for documentation with swagger
+const swaggerui = require("swagger-ui-express")
+
+app.use("/doc", swaggerui.serve, swaggerui.setup(apiDocumentation))
+
 
 
 //server
